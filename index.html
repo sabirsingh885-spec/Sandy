@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanchan Vidya Mandir College - Excellence in Management Education</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            line-height: 1.6; color: #2c3e50; overflow-x: hidden; 
+        }
+        html { scroll-behavior: smooth; }
+        
+        /* Navigation */
+        nav { 
+            position: fixed; top: 0; width: 100%; background: rgba(52, 152, 219, 0.95); 
+            backdrop-filter: blur(20px); z-index: 1000; padding: 1rem 0; 
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        nav.scrolled { padding: 0.5rem 0; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        .nav-container { 
+            max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; 
+            align-items: center; padding: 0 2rem; 
+        }
+        .logo { font-size: 1.8rem; font-weight: bold; color: white; }
+        .nav-links { display: flex; list-style: none; gap: 2rem; }
+        .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease; }
+        .nav-links a:hover { color: #f39c12; transform: translateY(-2px); }
+
+        /* Hero */
+        .hero { 
+            height: 100vh; 
+            background: linear-gradient(rgba(52, 152, 219, 0.85), rgba(41, 128, 185, 0.7)), 
+                        url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover;
+            display: flex; align-items: center; justify-content: center; text-align: center; color: white; 
+            position: relative; 
+        }
+        .hero-content h1 { 
+            font-size: clamp(3rem, 6vw, 4.5rem); margin-bottom: 1rem; 
+            opacity: 0; transform: translateY(50px); animation: fadeInUp 1.2s 0.2s forwards; 
+        }
+        .hero-content p { 
+            font-size: 1.4rem; margin-bottom: 2rem; max-width: 600px; 
+            opacity: 0; transform: translateY(30px); animation: fadeInUp 1.2s 0.5s forwards; 
+        }
+        .cta-button { 
+            display: inline-block; padding: 1.2rem 3rem; background: linear-gradient(45deg, #f39c12, #e67e22); 
+            color: white; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 1.1rem; 
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); box-shadow: 0 10px 30px rgba(243, 156, 18, 0.4); 
+        }
+        .cta-button:hover { transform: translateY(-8px) scale(1.05); box-shadow: 0 20px 40px rgba(243, 156, 18, 0.6); }
+
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+        /* Sections */
+        .section { padding: 100px 2rem; max-width: 1200px; margin: 0 auto; }
+        .features, .programs { background: #f8f9fa; }
+        .section-title { text-align: center; font-size: 2.8rem; margin-bottom: 4rem; color: #2980b9; position: relative; }
+        .section-title::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 80px; height: 4px; background: #f39c12; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+        .card { 
+            background: white; padding: 2.5rem; border-radius: 20px; text-align: center; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08); transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+            position: relative; overflow: hidden; 
+        }
+        .card::before { 
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; 
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); 
+            transition: left 0.7s; 
+        }
+        .card:hover::before { left: 100%; }
+        .card:hover { transform: translateY(-20px) rotateX(3deg); box-shadow: 0 40px 80px rgba(0,0,0,0.15); }
+        .icon { width: 90px; height: 90px; margin: 0 auto 1.5rem; background: linear-gradient(45deg, #3498db, #2980b9); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; color: white; transition: all 0.4s ease; }
+        .card:hover .icon { transform: scale(1.15) rotate(180deg); }
+
+        /* Gallery */
+        .gallery { background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); color: white; }
+        .gallery-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+        .gallery-item { height: 280px; border-radius: 15px; overflow: hidden; cursor: pointer; transition: all 0.5s ease; position: relative; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
+        .gallery-item:hover img { transform: scale(1.12); }
+        .gallery-item::after { 
+            content: attr(data-title); position: absolute; bottom: 1rem; left: 1rem; right: 1rem; 
+            background: rgba(255,255,255,0.95); color: #2c3e50; padding: 1rem; border-radius: 10px; 
+            opacity: 0; transition: opacity 0.4s ease; font-weight: bold; 
+        }
+        .gallery-item:hover::after { opacity: 1; }
+
+        /* Stats */
+        .stats { background: #34495e; color: white; text-align: center; }
+        .stats-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+        .stat { font-size: 2.5rem; font-weight: bold; margin-bottom: 0.5rem; color: #f39c12; }
+        .stat p { font-size: 1.1rem; margin: 0; }
+
+        /* Contact Section */
+        .contact-info { font-size: 1.3rem; margin: 1rem 0; display: flex; align-items: center; justify-content: center; gap: 1rem; }
+        
+        /* Footer */
+        footer { background: #2c3e50; color: white; text-align: center; padding: 3rem 2rem; }
+        
+        @media (max-width: 768px) { 
+            .nav-links { display: none; } 
+            .grid { grid-template-columns: 1fr; } 
+            .contact-info { flex-direction: column; gap: 0.5rem; }
+            .hero-content h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">🅺🅼C Kanchan Vidya Mandir College</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#programs">Programs</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Admissions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Kanchan Vidya Mandir College</h1>
+            <p>QAA Certified Excellence in Management Education | BBS & MBS Programs | Mahendranagar, Kanchanpur</p>
+            <a href="#contact" class="cta-button">Apply Now</a>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programs" class="section programs">
+        <h2 class="section-title">Academic Programs</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="icon">📊</div>
+                <h3>Bachelor of Business Studies (BBS)</h3>
+                <p>4-Year comprehensive program focusing on business fundamentals, entrepreneurship, and practical management skills. 95% placement rate.</p>
+            </div>
+            <div class="card">
+                <div class="icon">🎓</div>
+                <h3>Master of Business Studies (MBS)</h3>
+                <p>2-Year advanced postgraduate degree with specializations in Finance, Marketing, and HRM. Research-focused curriculum.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section features">
+        <h2 class="section-title">Why Choose KMC?</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="icon">🏆</div>
+                <h3>QAA Certified</h3>
+                <p>Quality Assurance and Accreditation certified institution maintaining highest academic standards.</p>
+            </div>
+            <div class="card">
+                <div class="icon">👨‍🏫</div>
+                <h3>Qualified Faculty</h3>
+                <p>Experienced PhD holders and industry experts delivering practical, project-based learning.</p>
+            </div>
+            <div class="card">
+                <div class="icon">🏛️</div>
+                <h3>Modern Facilities</h3>
+                <p>State-of-the-art classrooms, computer labs, library, and dedicated project spaces in Ward No. 4, Mahendranagar.</p>
+            </div>
+            <div class="card">
+                <div class="icon">🎯</div>
+                <h3>Project Focus</h3>
+                <p>Hands-on curriculum activities, internships, seminars, and real-world business projects.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="stats" class="section stats">
+        <h2 class="section-title" style="color: white;">Our Achievements</h2>
+        <div class="grid stats-grid">
+            <div class="stat">
+                <div>500+</div>
+                <p>Graduates</p>
+            </div>
+            <div class="stat">
+                <div>95%</div>
+                <p>Placement Rate</p>
+            </div>
+            <div class="stat">
+                <div>25+</div>
+                <p>Faculty Members</p>
+            </div>
+            <div class="stat">
+                <div>10+</div>
+                <p>Years Excellence</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section gallery">
+        <h2 class="section-title" style="color: white;">Campus Gallery</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item" data-title="Main Building - Kanchanpur">
+                <img src="https://images.unsplash.com/photo-1524178232363-933d95f4b33d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Campus">
+            </div>
+            <div class="gallery-item" data-title="Management Classroom">
+                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Classroom">
+            </div>
+            <div class="gallery-item" data-title="Computer Lab">
+                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Lab">
+            </div>
+            <div class="gallery-item" data-title="Library & Study Area">
+                <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Library">
+            </div>
+            <div class="gallery-item" data-title="Student Projects">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Projects">
+            </div>
+            <div class="gallery-item" data-title="Seminar Hall">
+                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Seminar">
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <h2 class="section-title">Admissions Open</h2>
+        <div style="text-align: center; max-width: 700px; margin: 0 auto;">
+            <h3 style="font-size: 1.8rem; margin-bottom: 2rem; color: #2980b9;">Kanchanpur, Mahendranagar Ward No. 4</h3>
+            <div class="contact-info">
+                📞 <strong>+977 9746509723</strong>
+            </div>
+            <div class="contact-info">
+                ✉️ <strong>sandipkalauni5@gmail.com</strong>
+            </div>
+            <p style="font-size: 1.1rem; margin: 2rem 0; color: #7f8c8d;">Admissions open for BBS & MBS programs. Limited seats available!</p>
+            <div>
+                <a href="tel:+9779746509723" class="cta-button" style="margin-right: 1rem;">📱 Call Now</a>
+                <a href="mailto:sandipkalauni5@gmail.com" class="cta-button" style="background: linear-gradient(45deg, #27ae60, #2ecc71);">📧 Email Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Kanchan Vidya Mandir College | Mahendranagar, Kanchanpur Ward No. 4<br>
+        📞 +977 9746509723 | ✉️ sandipkalauni5@gmail.com | QAA Certified</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Smooth reveal animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.card, .gallery-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(40px)';
+            el.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
